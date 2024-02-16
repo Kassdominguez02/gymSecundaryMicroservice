@@ -2,7 +2,7 @@ package com.example.gymMicroservice.Service;
 
 import java.util.Date;
 import java.util.List;
-
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -45,14 +45,17 @@ private static final Logger logger = Logger.getLogger(TrainingService.class.getN
         trainingRepository.save(training); 
         }
 	
-	private void deleteTraining(Training training) {
+	public Training deleteTraining(Long id) {
+		
+		// Primero, obtenemos el entrenamiento a eliminar
+	    Optional<Training> optionalTraining = trainingRepository.findById(id);
+	    
+	    Training training = optionalTraining.get();
         
-        Long trainingIdToDelete = training.getIdTraining();
+        trainingRepository.deleteById(id);
 
-        // Elimina el entrenamiento de la base de datos
-        trainingRepository.deleteById(trainingIdToDelete);
-
-        
+     // Devolvemos el entrenamiento eliminado
+        return training;
     }
 	
 	

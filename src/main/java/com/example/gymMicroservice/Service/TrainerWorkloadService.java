@@ -1,6 +1,8 @@
 package com.example.gymMicroservice.Service;
 
+import java.util.logging.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jms.annotation.JmsListener;
 import org.springframework.stereotype.Service;
 
 import java.time.YearMonth;
@@ -9,24 +11,36 @@ import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+
 import com.example.gymMicroservice.Entity.Training;
 import com.example.gymMicroservice.Repository.TrainingRepository;
 import com.example.gymMicroservice.dto.ActionType;
+import com.example.gymMicroservice.dto.TrainingRequestDto;
 import com.example.gymMicroservice.dto.TrainingWorkloadRequest;
 import com.example.gymMicroservice.dto.TrainingWorkloadResponse;
 
 @Service
 public class TrainerWorkloadService {
 	
+	private static final Logger logger = Logger.getLogger(TrainerWorkloadService.class.getName());
+	
 	@Autowired
     private TrainingRepository trainingRepository;  
+	
+	
+	
 
-    public TrainingWorkloadResponse calculateTrainerWorkload(TrainingWorkloadRequest request) {
+
+    public TrainingWorkloadResponse calculateTrainerWorkload(TrainingWorkloadRequest trainingDto) {
+    	
+    	
+    	
         // Implementa la lógica para calcular el resumen mensual del entrenador
-        String trainerUsername = request.getUsername();
-        String trainerFirstName = request.getFirstName();
-        String trainerLastName = request.getLastName();
-        boolean trainerStatus = request.isActive();
+        String trainerUsername = trainingDto.getUsername();
+        String trainerFirstName = trainingDto.getFirstName();
+        String trainerLastName = trainingDto.getLastName();
+        boolean trainerStatus = trainingDto.isActive();
 
         // Obtén la información de los entrenamientos del repository
         List<Training> trainings = trainingRepository.findByTrainerUserUserName(trainerUsername);

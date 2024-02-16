@@ -11,7 +11,9 @@ public class TrainingWorkloadRequest {
     private boolean isActive;
     private Date trainingDate;
     private int trainingDuration;
-    private String actionType; 
+    private String actionType;
+    
+    
 	public String getUsername() {
 		return username;
 	}
